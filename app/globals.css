@@ -2,12 +2,31 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #000000;
+
+  /* Commerso Brand Colors */
+  --commerso-orange: #FF8C00;
+  --commerso-red: #C84338;
+  --commerso-black: #000000;
+  --commerso-gray: #F5F5F5;
+  --commerso-dark-gray: #333333;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  /* Commerso Brand Palette */
+  --color-primary: var(--commerso-orange);
+  --color-secondary: var(--commerso-red);
+  --color-accent: var(--commerso-orange);
+
+  /* Grays */
+  --color-gray-50: #FAFAFA;
+  --color-gray-100: var(--commerso-gray);
+  --color-gray-800: var(--commerso-dark-gray);
+  --color-gray-900: var(--commerso-black);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
