@@ -9,3 +9,23 @@ const builder = createImageUrlBuilder({ projectId, dataset })
 export const urlFor = (source: SanityImageSource) => {
   return builder.image(source)
 }
+// Helper to get optimized image URL
+
+export function getImageUrl(source: SanityImageSource, width?: number, height?: number) {
+
+  let image = urlFor(source).auto('format').fit('max')
+
+  if (width) {
+
+    image = image.width(width)
+
+  }
+  if (height) {
+
+    image = image.height(height)
+
+  }
+
+  return image.url()
+
+}
