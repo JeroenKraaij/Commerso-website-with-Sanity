@@ -1,19 +1,38 @@
 import { groq } from 'next-sanity'
 
 /**
- * Site Settings Query
- * Fetches global site configuration including logo, navigation, CTA, and SEO defaults
+ * SITE SETTINGS QUERY
+ * Fetches complete site configuration with all nested objects
+ * This is a singleton - there should only be one siteSettings document
  */
 export const SITE_SETTINGS_QUERY = groq`
   *[_type == "siteSettings"][0] {
+    // ALGEMEEN
     siteName,
     siteUrl,
+    siteDescription,
+
+    // BRANDING
     logo {
       asset->,
       alt
     },
     logoWidth,
+    favicon {
+      asset->
+    },
+    colors {
+      primaryColor,
+      secondaryColor,
+      accentColor,
+      backgroundColor,
+      textColor
+    },
+
+    // HEADER
     navigation-> {
+      _id,
+      title,
       items[] {
         label,
         "slug": page->slug.current,
@@ -33,6 +52,47 @@ export const SITE_SETTINGS_QUERY = groq`
       style,
       openInNewTab
     },
+
+    // FOOTER
+    footer {
+      copyrightText,
+      showSocialLinks,
+      columns[] {
+        title,
+        links[] {
+          label,
+          url,
+          openInNewTab
+        }
+      },
+      bottomText
+    },
+
+    // CONTACT
+    contact {
+      email,
+      phone,
+      address {
+        street,
+        postalCode,
+        city,
+        country
+      },
+      kvkNumber,
+      vatNumber
+    },
+
+    // SOCIAL MEDIA
+    socialLinks {
+      linkedin,
+      twitter,
+      facebook,
+      instagram,
+      youtube,
+      github
+    },
+
+    // SEO
     defaultSeo {
       metaTitle,
       metaDescription,
@@ -41,9 +101,15 @@ export const SITE_SETTINGS_QUERY = groq`
       },
       keywords
     },
-    favicon {
-      asset->
-    },
-    socialLinks
+
+    // SCRIPTS
+    trackingScripts {
+      googleAnalyticsId,
+      googleTagManagerId,
+      facebookPixelId,
+      customHeadScripts,
+      customBodyScripts,
+      cookieConsent
+    }
   }
 `
