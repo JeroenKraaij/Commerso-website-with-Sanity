@@ -3,7 +3,7 @@ import "@/app/globals.css";
 import { client } from '@/sanity/lib/client';
 import { SITE_SETTINGS_QUERY } from '@/sanity/lib/queries';
 import { SiteSettings } from '@/types/sanity';
-import Header from '@/components/organisms/Header';
+import Header from '@/components/Header';
 import { getImageUrl } from '@/sanity/lib/image';
 import { Metadata } from 'next';
 
@@ -18,7 +18,16 @@ const geistMono = Geist_Mono({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const settings = await client.fetch<SiteSettings>(SITE_SETTINGS_QUERY);
+  const settings = await client.fetch<SiteSettings | null>(SITE_SETTINGS_QUERY);
+
+  if (!settings) {
+    return {
+      title: 'Commerso',
+      description: 'AI-gedreven oplossingen voor SMB/MKB',
+      icons: { icon: '/favicon.ico' },
+    };
+  }
+
   const seo = settings.defaultSeo;
   const favicon = settings.favicon?.asset ? getImageUrl(settings.favicon.asset, 32, 32) : undefined;
 
@@ -45,7 +54,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: seo?.metaDescription || '',
       images: seo?.ogImage?.asset ? [getImageUrl(seo.ogImage.asset, 1200, 630) || ''] : undefined,
     },
-    metadataBase: new URL(settings.siteUrl),
+    metadataBase: settings.siteUrl ? new URL(settings.siteUrl) : undefined,
   };
 }
 
@@ -56,12 +65,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const settings = await client.fetch<SiteSettings>(SITE_SETTINGS_QUERY);
+  const settings = await client.fetch<SiteSettings | null>(SITE_SETTINGS_QUERY);
 
   return (
     <html lang="nl">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Header settings={settings} />
+        {settings && <Header settings={settings} />}
         <main>{children}</main>
       </body>
     </html>
