@@ -3,9 +3,13 @@ import "@/app/globals.css";
 import { client } from '@/sanity/lib/client';
 import { SITE_SETTINGS_QUERY } from '@/sanity/lib/queries';
 import { SiteSettings } from '@/types/sanity';
+<<<<<<< HEAD
 import Header from '@/components/organisms/Header';
 import { getImageUrl } from '@/sanity/lib/image';
 import { Metadata } from 'next';
+=======
+import Header from '@/components/Header';
+>>>>>>> 5f878dddc9c0f4e92462c51c903da76ac67b2c80
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,49 +20,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-export async function generateMetadata(): Promise<Metadata> {
-  const settings = await client.fetch<SiteSettings | null>(SITE_SETTINGS_QUERY);
-
-  if (!settings) {
-    return {
-      title: 'Commerso',
-      description: 'AI-gedreven oplossingen voor SMB/MKB',
-      icons: { icon: '/favicon.ico' },
-    };
-  }
-
-  const seo = settings.defaultSeo;
-  const favicon = settings.favicon?.asset ? getImageUrl(settings.favicon.asset, 32, 32) : undefined;
-
-  return {
-    title: {
-      template: `%s | ${settings.siteName}`,
-      default: seo?.metaTitle || settings.siteName,
-    },
-    description: seo?.metaDescription || '',
-    keywords: seo?.keywords,
-    icons: {
-      icon: favicon || '/favicon.ico',
-    },
-    openGraph: {
-      type: 'website',
-      siteName: settings.siteName,
-      title: seo?.metaTitle || settings.siteName,
-      description: seo?.metaDescription || '',
-      images: seo?.ogImage?.asset ? [{ url: getImageUrl(seo.ogImage.asset, 1200, 630) || '' }] : undefined,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: seo?.metaTitle || settings.siteName,
-      description: seo?.metaDescription || '',
-      images: seo?.ogImage?.asset ? [getImageUrl(seo.ogImage.asset, 1200, 630) || ''] : undefined,
-    },
-    metadataBase: settings.siteUrl ? new URL(settings.siteUrl) : undefined,
-  };
-}
-
-export const revalidate = 60;
 
 export default async function RootLayout({
   children,
