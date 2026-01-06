@@ -17,7 +17,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Generate default metadata from Sanity
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await client.fetch<SiteSettings>(SITE_SETTINGS_QUERY);
   const seo = settings.defaultSeo;
@@ -50,7 +49,6 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-// Revalidate settings every 60 seconds
 export const revalidate = 60;
 
 export default async function RootLayout({
