@@ -40,7 +40,7 @@ export default function Header({ settings }: HeaderProps) {
       <nav className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <Link href="/public" className="flex items-center">
             {logo?.asset && (
               <Image
                 src={getImageUrl(logo.asset, logoWidth * 2) || ''} // 2x for retina

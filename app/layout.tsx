@@ -3,7 +3,7 @@ import "@/app/globals.css";
 import { client } from '@/sanity/lib/client';
 import { SITE_SETTINGS_QUERY } from '@/sanity/lib/queries';
 import { SiteSettings } from '@/types/sanity';
-import Header from '@/components/Header';
+import Header from '@/components/organisms/Header';
 import { getImageUrl } from '@/sanity/lib/image';
 import { Metadata } from 'next';
 
