@@ -1,118 +1,78 @@
 
 import { defineType, defineField } from 'sanity'
 
+/**
+ * Site Settings
+ * Central configuration for the entire website
+ * This is a singleton - there should only be one document
+ */
+
 export default defineType({
 
     name: 'siteSettings',
-
     title: 'Site Settings',
-
     type: 'document',
-
     groups: [
 
-        {
-
-            name: 'general',
-
-            title: 'General',
-
-        },
-
-        {
-
-            name: 'header',
-
-            title: 'Header',
-
-        },
-
-        {
-
-            name: 'seo',
-
-            title: 'SEO Defaults',
-
-        },
-
-        {
-
-            name: 'social',
-
-            title: 'Social Media',
-
-        },
-
+        { name: 'general', title: 'Algemeen' },
+        { name: 'branding', title: 'Branding' },
+        { name: 'header', title: 'Header' },
+        { name: 'footer', title: 'Footer' },
+        { name: 'contact', title: 'Contact' },
+        { name: 'social', title: 'Social Media' },
+        { name: 'seo', title: 'SEO' },
+        { name: 'scripts', title: 'Scripts' },
     ],
 
     fields: [
 
-        // General
+        // ALGEMEEN
 
         defineField({
 
             name: 'siteName',
-
-            title: 'Site Name',
-
+            title: 'Website Naam',
             type: 'string',
-
-            description: 'The name of your website',
-
+            description: 'De naam van je website (bijv. Commerso)',
             validation: (Rule) => Rule.required(),
-
             group: 'general',
 
         }),
 
         defineField({
-
             name: 'siteUrl',
-
-            title: 'Site URL',
-
+            title: 'Website URL',
             type: 'url',
-
-            description: 'The main URL of your website (e.g., https://commerso.nl)',
-
+            description: 'De volledige URL van je website (bijv. https://commerso.nl)',
             validation: (Rule) => Rule.required(),
-
             group: 'general',
 
         }),
 
+        defineField({
+            name: 'siteDescription',
+            title: 'Website Beschrijving',
+            type: 'text',
+            rows: 3,
+            description: 'Korte beschrijving van je bedrijf/website',
+            group: 'general',
 
+        }),
 
-        // Header
+        // BRANDING
 
         defineField({
-
             name: 'logo',
-
             title: 'Logo',
-
             type: 'image',
-
-            description: 'Upload your company logo (SVG or PNG recommended)',
-
-            options: {
-
-                hotspot: true,
-
-            },
-
+            description: 'Upload je bedrijfslogo (PNG of SVG aanbevolen)',
+            options: { hotspot: true },
             fields: [
-
                 {
-
                     name: 'alt',
-
                     type: 'string',
-
-                    title: 'Alternative text',
-
-                    description: 'Important for accessibility',
-
+                    title: 'Alt tekst',
+                    description: 'Beschrijving van het logo (belangrijk voor toegankelijkheid)',
                     validation: (Rule) => Rule.required(),
 
                 },
@@ -120,167 +80,124 @@ export default defineType({
             ],
 
             validation: (Rule) => Rule.required(),
-
-            group: 'header',
-
+            group: 'branding',
         }),
 
         defineField({
 
             name: 'logoWidth',
-
-            title: 'Logo Width (pixels)',
-
+            title: 'Logo Breedte (pixels)',
             type: 'number',
-
-            description: 'Width of logo in navigation bar',
-
+            description: 'Gewenste breedte van het logo in de navigatiebalk',
             initialValue: 150,
-
             validation: (Rule) => Rule.required().min(50).max(400),
-
-            group: 'header',
+            group: 'branding',
 
         }),
+
+        defineField({
+            name: 'favicon',
+            title: 'Favicon',
+            type: 'image',
+            description: 'Browser tab icoon (32x32px aanbevolen, PNG of ICO)',
+            options: { accept: 'image/png, image/x-icon' },
+            group: 'branding',
+
+        }),
+
+        defineField({
+            name: 'colors',
+            title: 'Kleurenschema',
+            type: 'colorSettings',
+            description: 'Brand kleuren voor je website',
+            group: 'branding',
+
+        }),
+
+        // HEADER
 
         defineField({
 
             name: 'navigation',
-
-            title: 'Main Navigation',
-
+            title: 'Hoofd Navigatie',
             type: 'reference',
-
             to: [{ type: 'navigation' }],
-
-            description: 'Select the navigation menu for the header',
-
+            description: 'Selecteer het navigatie menu voor de header',
             group: 'header',
 
         }),
 
         defineField({
-
             name: 'headerCta',
-
             title: 'Header CTA Button',
-
             type: 'ctaButton',
-
-            description: 'Call-to-action button in the header (right side)',
-
+            description: 'Call-to-action knop in de header (rechterkant)',
             group: 'header',
 
         }),
 
-
-
-        // SEO Defaults
+        // FOOTER
 
         defineField({
-
-            name: 'defaultSeo',
-
-            title: 'Default SEO Settings',
-
-            type: 'seo',
-
-            description: 'Default SEO settings for pages without custom SEO',
-
-            group: 'seo',
+            name: 'footer',
+            title: 'Footer Instellingen',
+            type: 'footerSettings',
+            description: 'Footer kolommen, copyright en links',
+            group: 'footer',
 
         }),
 
+        // CONTACT
+
         defineField({
-
-            name: 'favicon',
-
-            title: 'Favicon',
-
-            type: 'image',
-
-            description: 'Browser tab icon (32x32px recommended)',
-
-            options: {
-
-                accept: 'image/png, image/x-icon',
-
-            },
-
-            group: 'seo',
+            name: 'contact',
+            title: 'Contact Informatie',
+            type: 'contactInfo',
+            description: 'Bedrijfsgegevens en contactinformatie',
+            group: 'contact',
 
         }),
 
-
-
-        // Social Media
+        // SOCIAL MEDIA
 
         defineField({
-
             name: 'socialLinks',
-
             title: 'Social Media Links',
-
-            type: 'object',
-
+            type: 'socialLinks',
+            description: 'Links naar je social media profielen',
             group: 'social',
 
-            fields: [
+        }),
 
-                {
+        // SEO
 
-                    name: 'linkedin',
+        defineField({
+            name: 'defaultSeo',
+            title: 'Standaard SEO Instellingen',
+            type: 'seo',
+            description: 'Standaard SEO instellingen voor pagina\'s zonder custom SEO',
+            group: 'seo',
 
-                    title: 'LinkedIn',
+        }),
 
-                    type: 'url',
+        // SCRIPTS
 
-                },
-
-                {
-
-                    name: 'twitter',
-
-                    title: 'Twitter/X',
-
-                    type: 'url',
-
-                },
-
-                {
-
-                    name: 'facebook',
-
-                    title: 'Facebook',
-
-                    type: 'url',
-
-                },
-
-                {
-
-                    name: 'instagram',
-
-                    title: 'Instagram',
-
-                    type: 'url',
-
-                },
-
-            ],
+        defineField({
+            name: 'trackingScripts',
+            title: 'Tracking & Scripts',
+            type: 'scripts',
+            description: 'Google Analytics, Tag Manager, en andere scripts',
+            group: 'scripts',
 
         }),
 
     ],
 
     preview: {
-
         select: {
-
             title: 'siteName',
+            subtitle: 'siteUrl',
 
         },
-
     },
-
 })
