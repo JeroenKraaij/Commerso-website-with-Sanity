@@ -1,8 +1,16 @@
+
 @import "tailwindcss";
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Sanity kleuren - worden dynamisch overschreven via layout */
+  --color-primary: #FF8C00;
+  --color-secondary: #C84338;
+  --color-accent: #000000;
+  --color-background: #FFFFFF;
+  --color-text: #000000;
 }
 
 @theme inline {
@@ -10,6 +18,11 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Tailwind custom colors voor Sanity */
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
 }
 
 @media (prefers-color-scheme: dark) {
