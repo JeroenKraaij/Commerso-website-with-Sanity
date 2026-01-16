@@ -1,5 +1,4 @@
 
-
 export const siteSettingsQuery = `
   *[_type == "siteSettings"][0] {
     _id,
@@ -32,6 +31,75 @@ export const siteSettingsQuery = `
       accentColor,
       backgroundColor,
       textColor
+    },
+    
+    typography {
+      headingFont {
+        name,
+        file[] {
+          weight,
+          file {
+            asset->{
+              url
+            }
+          }
+        },
+        fallback
+      },
+      bodyFont {
+        name,
+        file[] {
+          weight,
+          file {
+            asset->{
+              url
+            }
+          }
+        },
+        fallback
+      },
+      h1 {
+        mobile,
+        tablet,
+        desktop,
+        weight,
+        lineHeight
+      },
+      h2 {
+        mobile,
+        tablet,
+        desktop,
+        weight,
+        lineHeight
+      },
+      h3 {
+        mobile,
+        tablet,
+        desktop,
+        weight,
+        lineHeight
+      },
+      h4 {
+        mobile,
+        tablet,
+        desktop,
+        weight,
+        lineHeight
+      },
+      h5 {
+        mobile,
+        tablet,
+        desktop,
+        weight,
+        lineHeight
+      },
+      bodyText {
+        mobile,
+        tablet,
+        desktop,
+        weight,
+        lineHeight
+      }
     },
     
     navigation->{

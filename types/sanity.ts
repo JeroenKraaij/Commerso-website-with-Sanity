@@ -36,6 +36,41 @@ export interface ColorSettings {
     textColor?: string
 }
 
+// 👇 Nieuw: Typography types
+export interface HeadingStyle {
+    mobile: number
+    tablet: number
+    desktop: number
+    weight: string
+    lineHeight: number
+}
+
+export interface FontFile {
+    weight: string
+    file: {
+        asset: {
+            url: string
+        }
+    }
+}
+
+export interface FontSettings {
+    name: string
+    file: FontFile[]
+    fallback: string
+}
+
+export interface TypographySettings {
+    headingFont?: FontSettings
+    bodyFont?: FontSettings
+    h1?: HeadingStyle
+    h2?: HeadingStyle
+    h3?: HeadingStyle
+    h4?: HeadingStyle
+    h5?: HeadingStyle
+    bodyText?: HeadingStyle
+}
+
 export interface CtaButton {
     text: string
     url: string
@@ -131,6 +166,7 @@ export interface SiteSettings {
     logoWidth: number
     favicon?: SanityImage
     colors?: ColorSettings
+    typography?: TypographySettings // 👈 Nieuw
     navigation?: Navigation
     headerCta?: CtaButton
     footer?: FooterSettings

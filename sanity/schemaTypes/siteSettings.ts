@@ -1,4 +1,5 @@
 
+// sanity/schemaTypes/siteSettings.ts
 import { defineType, defineField } from 'sanity'
 
 export default defineType({
@@ -8,6 +9,7 @@ export default defineType({
     groups: [
         { name: 'general', title: 'Algemeen' },
         { name: 'branding', title: 'Branding' },
+        { name: 'typography', title: 'Typografie' }, // 👈 Nieuw
         { name: 'header', title: 'Header' },
         { name: 'footer', title: 'Footer' },
         { name: 'contact', title: 'Contact' },
@@ -90,6 +92,15 @@ export default defineType({
             type: 'colorSettings',
             description: 'Brand kleuren voor je website',
             group: 'branding',
+        }),
+
+        // TYPOGRAFIE 👈 Nieuw
+        defineField({
+            name: 'typography',
+            title: 'Typografie Instellingen',
+            type: 'typographySettings',
+            description: 'Fonts en heading groottes voor je website',
+            group: 'typography',
         }),
 
         // HEADER

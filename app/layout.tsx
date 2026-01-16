@@ -5,7 +5,7 @@ import "@/app/globals.css";
 import { client } from '@/sanity/lib/client';
 import type { SiteSettings } from '@/types/sanity';
 import { getImageUrl } from '@/sanity/lib/image';
-import { generateCSSVariables } from '@/sanity/utils/styles';
+import { generateCSSVariables, generateFontFaces, generateTypographyVariables } from '@/sanity/utils/styles';
 import type { Metadata } from 'next';
 import { siteSettingsQuery } from "@/sanity/queries";
 
@@ -87,10 +87,24 @@ export default async function RootLayout({
                     __html: generateCSSVariables(settings.colors)
                 }} />
             )}
+
+            {/* Font faces voor custom fonts */}
+            {settings?.typography && (
+                <style dangerouslySetInnerHTML={{
+                    __html: generateFontFaces(settings.typography)
+                }} />
+            )}
+
+            {/* Typography variables en styles */}
+            {settings?.typography && (
+                <style dangerouslySetInnerHTML={{
+                    __html: generateTypographyVariables(settings.typography)
+                }} />
+            )}
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
         </body>
         </html>
     );
-};
+}
